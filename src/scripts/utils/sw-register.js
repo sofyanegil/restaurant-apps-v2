@@ -1,12 +1,22 @@
-import runtime from 'serviceworker-webpack-plugin/lib/runtime';
+/* eslint-disable no-console */
+import { Workbox } from 'workbox-window';
 
-const swRegister = async () => {
+const swRegister = () => {
   if ('serviceWorker' in navigator) {
-    await runtime.register();
-    return;
+    const wb = new Workbox('./../sw.js');
+
+    wb.addEventListener('waiting', () => {
+      console.log('Service Worker has been installed...');
+    });
+
+    wb.addEventListener('activated', (event) => {
+      if (!event.isUpdate) {
+        console.log('Service Worker activated!');
+      }
+    });
+
+    wb.register();
   }
-  // eslint-disable-next-line no-console
-  console.log('Service worker not supported in this browser');
 };
 
 export default swRegister;
