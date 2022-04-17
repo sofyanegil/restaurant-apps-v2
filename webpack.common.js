@@ -23,6 +23,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src/templates/index.html'),
       filename: 'index.html',
+      minify: 'auto',
     }),
     new CopyWebpackPlugin({
       patterns: [
@@ -33,6 +34,7 @@ module.exports = {
       ],
     }),
     new WebpackPwaManifest({
+      filename: 'manifest.json',
       name: 'Eatery Restaurant',
       short_name: 'Eatery',
       display: 'standalone',
